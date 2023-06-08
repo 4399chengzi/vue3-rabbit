@@ -15,4 +15,15 @@ export const findNewAPI = () => {
     return httpInstance({
       url:'/home/new'
     })
-  }
+}
+
+/**
+ * @description: 获取人气推荐
+ * @param {*}
+ * @return {*}
+ */
+export const getHotAPI = () => {
+    return  httpInstance({
+        url:'/home/hot'
+    })
+}
