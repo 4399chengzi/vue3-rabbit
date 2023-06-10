@@ -21,13 +21,13 @@ const reqData = ref({
     sortField: 'publishTime'
 })
 
-const getGoodList = async() => {
+const getGoodList = async () => {
     const res = await getSubCategoryAPI(reqData.value)
     console.log(res)
     goodList.value = res.result.items
 }
 
-onMounted(()=>getGoodList())
+onMounted(() => getGoodList())
 
 const tabChange = () => {
     console.log('tab切换了', reqData.value.sortField)
@@ -36,11 +36,15 @@ const tabChange = () => {
 }
 
 
+const disabled = ref(false)
 const load = async () => {
     console.log('加载更多数据咯');
     reqData.value.page++
     const res = await getSubCategoryAPI(reqData.value)
-    goodList.value = [...goodList.value, ...res.result.items]
+    goodList.value = [ ...goodList.value, ...res.result.items]
+    if (res.result.items.length === 0) {
+        disabled.value = true
+    }
 }
 </script>
 
@@ -61,7 +65,7 @@ const load = async () => {
                 <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
                 <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
             </el-tabs>
-            <div class="body" v-infinite-scroll="load">
+            <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
                 <!-- 商品列表-->
                 <GoodsItem v-for="goods in goodList" :goods="goods" :key="goods.id" />
             </div>
