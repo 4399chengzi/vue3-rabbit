@@ -79,7 +79,7 @@ watch([elementX, elementY, isOutside], () => {
         backgroundPositionX: `${positionX}px`,
         backgroundPositionY: `${positionY}px`,
       },
-    ]"></div>
+    ]" v-show="!isOutside"></div>
   </div>
 </template>
 
