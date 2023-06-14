@@ -1,10 +1,17 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { ElMessage } from 'element-plus'
+import 'element-plus/es/components/message/style/css'
+
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
 
 
 const form = ref({
-    account: '',
-    password: '',
+    account: '13512552052',
+    password: '123456',
     agree: true
 })
 
@@ -20,9 +27,9 @@ const rules = ref({
         {
             validator: (rule, value, callback) => {
                 console.log(value)
-                if(value){
+                if (value) {
                     callback()
-                }else{
+                } else {
                     callback(new Error('请勾选协议'))
                 }
             }
@@ -31,11 +38,18 @@ const rules = ref({
 })
 
 const formRef = ref(null)
+const router = useRouter()
 const doLogin = () => {
-    formRef.value.validate((valid) => {
+    const { account, password } = form.value
+    formRef.value.validate(async (valid) => {
         console.log(valid)
-        if(valid){
+        if (valid) {
             // TODO LOGIN
+            await userStore.getuserInfo({ account, password })
+
+            ElMessage({ type: 'success', message: '登陆成功' })
+
+            router.replace({ path: '/' })
         }
     })
 }
@@ -64,9 +78,10 @@ const doLogin = () => {
                 </nav>
                 <div class="account-box">
                     <div class="form">
-                        <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
+                        <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px"
+                            status-icon>
                             <el-form-item prop="account" label="账户">
-                                <el-input v-model="form.account"/>
+                                <el-input v-model="form.account" />
                             </el-form-item>
                             <el-form-item prop="password" label="密码">
                                 <el-input v-model="form.password" />
