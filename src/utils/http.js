@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ElMessage } from 'element-plus'
-import 'element-plus/es/components/message/style/css'
+import { useUserStore } from "@/stores/user"
 
 
 const httpInstance = axios.create({
