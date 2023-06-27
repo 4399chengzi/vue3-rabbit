@@ -29,6 +29,7 @@ httpInstance.interceptors.response.use(res => res.data, e => {
         userStore.clearUserInfo()
         router.push('/login')
     }
+    
     return Promise.reject(e)
 })
 
