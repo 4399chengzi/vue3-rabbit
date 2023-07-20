@@ -10,8 +10,8 @@ const userStore = useUserStore()
 
 
 const form = ref({
-    account: 'heima282',
-    password: 'hm#qd@23!',
+    account: 'cdshi0088',
+    password: '123456',
     agree: true
 })
 
