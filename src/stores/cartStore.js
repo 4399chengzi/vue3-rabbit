@@ -38,7 +38,7 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
-    const clearCart = () => {
+    const clearCart = async() => {
         cartList.value = []
     }
 
@@ -75,7 +75,8 @@ export const useCartStore = defineStore('cart', () => {
         delCart,
         clearCart,
         singleCheck,
-        allCheck
+        allCheck,
+        updateNewList
     }
 }, {
     persist: true,
